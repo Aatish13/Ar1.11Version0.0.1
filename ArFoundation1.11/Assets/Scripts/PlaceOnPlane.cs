@@ -37,7 +37,7 @@ public class PlaceOnPlane : MonoBehaviour
     /// </summary>
     public GameObject spawnedObject { get; set; }
 
-    public static GameObject AssatObj=null;
+    public static GameObject AssatObj = null;
 
     public Text SnakBar;
     public string path;
@@ -61,8 +61,9 @@ public class PlaceOnPlane : MonoBehaviour
         VisualizePoints(false);
 
     }
-    
-    public void MoveUp() {
+
+    public void MoveUp()
+    {
         var pos = spawnedObject.transform.position;
         pos.y += 0.2f;
         spawnedObject.transform.position = pos;
@@ -74,8 +75,8 @@ public class PlaceOnPlane : MonoBehaviour
         spawnedObject.transform.position = pos;
     }
     public Text sizeLable;
-    float[] size = { 1f,0.5f, 0.2f, 0.1f, 0.05f, 0.02f ,0.01f,0.005f};
-    string[] lable = { "1:1", "1:2", "1:5", "1:10", "1:20", "1:50","1:100","1:200" };
+    float[] size = { 1f, 0.5f, 0.2f, 0.1f, 0.05f, 0.02f, 0.01f, 0.005f };
+    string[] lable = { "1:1", "1:2", "1:5", "1:10", "1:20", "1:50", "1:100", "1:200" };
     int index = 0;
     public void SizeUp()
     {
@@ -89,7 +90,7 @@ public class PlaceOnPlane : MonoBehaviour
             spawnedObject.transform.localScale = dif;
             sizeLable.text = lable[index];
         }
-   }
+    }
     public void SizeDown()
     {
         if (spawnedObject != null)
@@ -103,7 +104,7 @@ public class PlaceOnPlane : MonoBehaviour
             sizeLable.text = lable[index];
 
         }
-        
+
     }
     void Awake()
     {
@@ -111,10 +112,11 @@ public class PlaceOnPlane : MonoBehaviour
         anchorManager = GetComponent<ARAnchorManager>();
     }
     int draw = -1;
-    public void changeDrowStatus() {
+    public void changeDrowStatus()
+    {
         draw *= -1;
     }
-    
+
     bool TryGetTouchPosition(out Vector2 touchPosition)
     {
 
@@ -123,35 +125,35 @@ public class PlaceOnPlane : MonoBehaviour
         {
             touchPosition = Input.GetTouch(0).position;
 
-           /* if (spawnedObject != null)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit hitt;
-                if (Physics.Raycast(ray, out hitt))
-                {
-                    var pos = ARcamera.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0.2f));
-                    // var x = anchorManager.AddAnchor(new Pose(pos, ARcamera.transform.rotation));
-                    //var tes = Instantiate(Note,hitt.transform.gameObject.transform);
-                   string id= hitt.transform.gameObject.name;
-                  //  hitt.transform.gameObject.GetComponent<MeshRenderer>().material.mainTexture = Texture2D.whiteTexture;
-                    LogText.text = id.ToString();
-                    //tes.transform.parent = hitt.transform.gameObject.transform;
-                    var outline = hitt.transform.gameObject.AddComponent<Outline>();
+            /* if (spawnedObject != null)
+             {
+                 Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                 RaycastHit hitt;
+                 if (Physics.Raycast(ray, out hitt))
+                 {
+                     var pos = ARcamera.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0.2f));
+                     // var x = anchorManager.AddAnchor(new Pose(pos, ARcamera.transform.rotation));
+                     //var tes = Instantiate(Note,hitt.transform.gameObject.transform);
+                    string id= hitt.transform.gameObject.name;
+                   //  hitt.transform.gameObject.GetComponent<MeshRenderer>().material.mainTexture = Texture2D.whiteTexture;
+                     LogText.text = id.ToString();
+                     //tes.transform.parent = hitt.transform.gameObject.transform;
+                     var outline = hitt.transform.gameObject.AddComponent<Outline>();
 
-                    outline.OutlineMode = Outline.Mode.OutlineAll;
-                    outline.OutlineColor = Color.yellow;
-                    outline.OutlineWidth = 5f;
+                     outline.OutlineMode = Outline.Mode.OutlineAll;
+                     outline.OutlineColor = Color.yellow;
+                     outline.OutlineWidth = 5f;
 
-                }
-            }
-      
-            if (draw==1){
-                var pos = ARcamera.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0.2f));
-                var x = anchorManager.AddAnchor(new Pose(pos, ARcamera.transform.rotation));
-            }
-       */
+                 }
+             }
+
+             if (draw==1){
+                 var pos = ARcamera.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0.2f));
+                 var x = anchorManager.AddAnchor(new Pose(pos, ARcamera.transform.rotation));
+             }
+        */
             return true;
-            
+
         }
 
 
@@ -160,71 +162,76 @@ public class PlaceOnPlane : MonoBehaviour
     }
     public GameObject Note;
     public Camera ARcamera;
-    public List<GameObject> line=new List<GameObject>();
+    public List<GameObject> line = new List<GameObject>();
     public GameObject Pen;
-    ARAnchorManager anchorManager; 
+    ARAnchorManager anchorManager;
+    public GameObject ArAnimation;
     void Update()
     {
-       
+
         //  url = Url.textComponent.text;
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
-    
-        if (spawnedObject != null) {
-            spawnedObject.transform.rotation = Quaternion.Euler(new Vector3(0,YRotation.value+90,0));
-            
+
+        if (spawnedObject != null)
+        {
+            spawnedObject.transform.rotation = Quaternion.Euler(new Vector3(0, YRotation.value + 90, 0));
+
         }
         sizeLable.text = lable[index];
 
 
         if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
+        {
+            // Raycast hits are sorted by distance, so the first one
+            // will be the closest hit.
+            var hitPose = s_Hits[0].pose;
+
+            if (spawnedObject == null)
             {
-                // Raycast hits are sorted by distance, so the first one
-                // will be the closest hit.
-                var hitPose = s_Hits[0].pose;
-
-                if (spawnedObject == null)
+                //var loadOb = SnapLoader.SnapLoadOBJ(@"file:\\storage\emulated\0\GameObject\o1.obj", hitPose.position);
+                if (AssatObj != null)
                 {
-                     //var loadOb = SnapLoader.SnapLoadOBJ(@"file:\\storage\emulated\0\GameObject\o1.obj", hitPose.position);
-                    if (AssatObj != null)
-                    {
-                        spawnedObject = Instantiate(AssatObj, hitPose.position, hitPose.rotation);
-                        
-                        VisualizePlanes(false);
-                        VisualizePoints(false);
-                    }
-                  // else {
-                    //  spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
-                    //}
+                    spawnedObject = Instantiate(AssatObj, hitPose.position, hitPose.rotation);
+                    ArAnimation.SetActive(false);
+                    VisualizePlanes(false);
+                    VisualizePoints(false);
+                }
+                // else {
+                //  spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
+                //}
 
-                }
-                else if(MoveXZFlag)
-                {
-                    spawnedObject.transform.position = hitPose.position;
-                }
             }
-      
+            else if (MoveXZFlag)
+            {
+                spawnedObject.transform.position = hitPose.position;
+            }
+        }
+
     }
-    public void LoadObj() {
-     
-            SnakBar.text = "Loading...............";
+    public void LoadObj()
+    {
+
+        SnakBar.text = "Loading...............";
         WWW www = new WWW(Url.text);
         StartCoroutine(WaitForReq(www));
     }
 
     GameObject loadedGameObject;
-    IEnumerator WaitForReq(WWW www) {
+    IEnumerator WaitForReq(WWW www)
+    {
         yield return www;
         AssetBundle bundle = www.assetBundle;
         if (www.error == "")
         {
             var names = bundle.GetAllAssetNames();
             loadedGameObject = (GameObject)bundle.LoadAsset(names[0]);
-             var obj = Instantiate(loadedGameObject);
+            var obj = Instantiate(loadedGameObject);
             SnakBar.text = "Loaded";
 
         }
-        else {
+        else
+        {
             Debug.Log(www.error);
         }
     }
@@ -253,17 +260,17 @@ public class PlaceOnPlane : MonoBehaviour
     {
         index = 0;
         YRotation.value = 360;
-       // spawnedObject.SetActive(false);
+        // spawnedObject.SetActive(false);
         Destroy(spawnedObject);
         VisualizePlanes(true);
         VisualizePoints(true);
-       // spawnedObject = null;
+        // spawnedObject = null;
 
     }
-   
 
 
-   
+
+
     void Start()
     {
 
@@ -289,7 +296,7 @@ public class PlaceOnPlane : MonoBehaviour
             SnakBar.text = FileBrowser.Result;
             path = FileBrowser.Result;
             byte[] bytes = FileBrowserHelpers.ReadBytesFromFile(FileBrowser.Result);
-           
+
         }
     }
 

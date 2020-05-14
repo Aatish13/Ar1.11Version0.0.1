@@ -28,6 +28,7 @@ public class LoginManagerUI : MonoBehaviour
     public GameObject LoadingPanal;
 
     public Text UserName;
+    public Text UserDescription;
     public RawImage ProfileImage;
     public Text ErrorText;
 
@@ -35,7 +36,7 @@ public class LoginManagerUI : MonoBehaviour
     public GameObject OpenBtn;
 
     public GameObject DashboardMenu;
-
+    public GameObject ProjectMenu;
     public Texture2D DefaultProjectTexture;
     // Start is called before the first frame update
     void Start()
@@ -51,49 +52,75 @@ public class LoginManagerUI : MonoBehaviour
             ProjectsPanal.SetActive(false);
             LoadingPanal.SetActive(false);
             UserName.text = PlayerPrefs.GetString("displayname");
-
+            UserDescription.text = PlayerPrefs.GetString("description");
 
         }
         else if (PlayerPrefs.HasKey("intro"))
         {
-        
+
             LoginPanal.SetActive(true);
             DashBoardPanel.SetActive(false);
             ProjectsPanal.SetActive(false);
             LoadingPanal.SetActive(false);
         }
-        else {
-  
+        else
+        {
+
             LoginPanal.SetActive(false);
             DashBoardPanel.SetActive(false);
             ProjectsPanal.SetActive(false);
             LoadingPanal.SetActive(false);
         }
-        
+
     }
-    public void OpenRegistrationLink() {
+
+
+    public void OpenRegistrationLink()
+    {
         StartCoroutine(waitfor1sec());
         Application.OpenURL("https://studiooneeleven.co/registration/");
 
     }
-    public void OpenResetPasswordLink() {
+    public void OpenResetPasswordLink()
+    {
         StartCoroutine(waitfor1sec());
 
         Application.OpenURL("https://studiooneeleven.co/password-reset/");
     }
-    IEnumerator waitfor1sec() {
+    public void OpenProfileLink()
+    {
+        StartCoroutine(waitfor1sec());
+
+        Application.OpenURL("https://studiooneeleven.co/profile/");
+    }
+
+    IEnumerator waitfor1sec()
+    {
         LoadingPanal.SetActive(true);
         yield return new WaitForSeconds(1);
         LoadingPanal.SetActive(false);
     }
-    public void OpenDashboardMenu() {
+
+    public void OpenProjectMenu()
+    {
+        ProjectMenu.SetActive(true);
+    }
+    public void CloseProjectMenu()
+    {
+        ProjectMenu.SetActive(false);
+    }
+
+
+    public void OpenDashboardMenu()
+    {
         DashboardMenu.SetActive(true);
     }
     public void CloseDashboardMenu()
     {
         DashboardMenu.SetActive(false);
     }
-    public void LogOut() {
+    public void LogOut()
+    {
         Projects = new List<Project>();
         projectIndex = 0;
 
@@ -109,7 +136,7 @@ public class LoginManagerUI : MonoBehaviour
 
     public void GotoLogin()
     {
-        
+
         LoginPanal.SetActive(true);
     }
 
@@ -164,9 +191,11 @@ public class LoginManagerUI : MonoBehaviour
             if (json["cookie"] != null)
             {
                 UserName.text = json.GetObject("user").GetString("displayname");
+                UserDescription.text = json.GetObject("user").GetString("description");
                 Debug.Log(json.GetObject("user").GetString("displayname"));
                 username = json.GetObject("user").GetString("username");
-                PlayerPrefs.SetString("username",username);
+                PlayerPrefs.SetString("username", username);
+                PlayerPrefs.SetString("description", json.GetObject("user").GetString("description"));
                 PlayerPrefs.SetString("displayname", json.GetObject("user").GetString("displayname"));
                 Debug.Log("Profile image link :::" + json.GetObject("user").GetString("avatar").Replace("\\", ""));
                 PlayerPrefs.SetString("profileimg", json.GetObject("user").GetString("avatar").Replace("\\", ""));
@@ -174,13 +203,13 @@ public class LoginManagerUI : MonoBehaviour
                 ErrorText.text = "";
                 LoginPanal.SetActive(false);
                 LoadingPanal.SetActive(false);
-            
+
                 DashBoardPanel.SetActive(true);
 
             }
             else
             {
-               
+
                 ErrorText.text = json["error"].ToString();
                 Debug.Log(json["error"].ToString());
                 LoginPanal.SetActive(true);
@@ -191,7 +220,7 @@ public class LoginManagerUI : MonoBehaviour
     }
     IEnumerator setImage(string url, RawImage rowimg)
     {
-      //  Texture2D texture = ProfileImage.canvasRenderer.GetMaterial().mainTexture as Texture2D;
+        //  Texture2D texture = ProfileImage.canvasRenderer.GetMaterial().mainTexture as Texture2D;
 
         WWW www = new WWW(url);
         yield return www;
@@ -200,12 +229,13 @@ public class LoginManagerUI : MonoBehaviour
         Debug.Log("Why on earh is this never called?");
         rowimg.color = Color.white;
         rowimg.texture = www.texture;
-      // www.LoadImageIntoTexture((Texture2D)ProfileImage.texture);
+        // www.LoadImageIntoTexture((Texture2D)ProfileImage.texture);
         www.Dispose();
         www = null;
     }
 
-    class Project {
+    class Project
+    {
         public double id { get; set; }
         public string name { get; set; }
         public string title { get; set; }
@@ -219,9 +249,9 @@ public class LoginManagerUI : MonoBehaviour
         public string photourl { get; set; }
         public Texture2D imgTexture { get; set; }
 
-}
+    }
 
-    IEnumerator setProjectImage(string url, RawImage rowimg,int index)
+    IEnumerator setProjectImage(string url, RawImage rowimg, int index)
     {
         //  Texture2D texture = ProfileImage.canvasRenderer.GetMaterial().mainTexture as Texture2D;
 
@@ -230,25 +260,26 @@ public class LoginManagerUI : MonoBehaviour
 
         // calling this function with StartCoroutine solves the problem
         Debug.Log("Why on earh is this never called?");
-       
+
         rowimg.color = Color.white;
         rowimg.texture = www.texture;
-        if(index==projectIndex)
+        if (index == projectIndex)
             Projects[index].imgTexture = www.texture;
-       // www.LoadImageIntoTexture((Texture2D)ProfileImage.texture);
-       www.Dispose();
+        // www.LoadImageIntoTexture((Texture2D)ProfileImage.texture);
+        www.Dispose();
         www = null;
     }
     public string username;
-    List<Project> Projects=new List<Project>();
+    List<Project> Projects = new List<Project>();
     public RawImage ProjectImage;
     public Text ProjectName;
     public Text ProjectTitle;
-    int projectIndex=0;
-    IEnumerator fetchProjects() {
+    int projectIndex = 0;
+    IEnumerator fetchProjects(bool isFetched)
+    {
         var request = UnityWebRequest.Get("https://studiooneeleven.co/wp-json/wp/v2/wpfm-files?per_page=100&_embed");
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-         request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
         if (request.error != null)
         {
@@ -263,47 +294,61 @@ public class LoginManagerUI : MonoBehaviour
             Debug.Log("Status Code: " + request.responseCode);
             string responseText = request.downloadHandler.text;
 
+            if (Projects.Count != 0)
+            {
+                Projects = null;
+                Projects = new List<Project>();
+                projectIndex = 0;
 
-        
+            }
             var obj = JSONArray.Parse(responseText);
             string username2 = PlayerPrefs.GetString("username");
-            foreach (var o in obj) {
+            foreach (var o in obj)
+            {
                 if (username2.Equals(o.Obj.GetString("author_name")))
                 {
-                   
-                      Debug.Log( o.Obj.GetString("post_image"));
 
-                    Projects.Add(new Project { id = o.Obj.GetNumber("id"),
+                    Debug.Log(o.Obj.GetString("post_image"));
+
+                    Projects.Add(new Project
+                    {
+                        id = o.Obj.GetNumber("id"),
                         name = o.Obj.GetString("wpfm_file_name"),
-                        url = o.Obj.GetString("wpfm_file_url"), size = o.Obj.GetString("wpfm_file_size"), description = o.Obj.GetString("wpfm_discription"),
+                        url = o.Obj.GetString("wpfm_file_url"),
+                        size = o.Obj.GetString("wpfm_file_size"),
+                        description = o.Obj.GetString("wpfm_discription"),
                         photourl = o.Obj.GetString("post_image").Replace("\\", ""),
                         title = o.Obj.GetString("wpfm_title")
                     });
                 }
             }
-           /* if (Projects.Count == 0) {
-                Projects.Add(new Project
-                {
-                    id = 0,
-                    name = "Sample Project",
-                    url = "",
-                    size = "0 MB",
-                    description = "This is Sample Project Proveided By Studio One eleven",
-                    photourl = "",
-                    title = "Sample Project"
-                    ,
-                    imgTexture = SampleTexture,
-                    LoadedObj=DefaultObject
-                });
-            }
-            */
+            /* if (Projects.Count == 0) {
+                 Projects.Add(new Project
+                 {
+                     id = 0,
+                     name = "Sample Project",
+                     url = "",
+                     size = "0 MB",
+                     description = "This is Sample Project Proveided By Studio One eleven",
+                     photourl = "",
+                     title = "Sample Project"
+                     ,
+                     imgTexture = SampleTexture,
+                     LoadedObj=DefaultObject
+                 });
+             }
+             */
             if (Projects.Count != 0)
             {
+
                 ProjectTitle.text = Projects[0].title;
                 ProjectName.text = "Project: " + Projects[0].name;
                 ProjectDescription.text = Projects[0].description;
                 ProjectSize.text = "Model size: " + Projects[0].size;
-                StartCoroutine(setProjectImage(Projects[0].photourl, ProjectImage, projectIndex));
+                if (!Projects[0].photourl.Equals(""))
+                    StartCoroutine(setProjectImage(Projects[0].photourl, ProjectImage, projectIndex));
+                else
+                    ProjectImage.texture = DefaultProjectTexture;
                 LoadingPanal.SetActive(false);
                 ProjectsPanal.SetActive(true);
                 DashBoardPanel.SetActive(false);
@@ -311,19 +356,21 @@ public class LoginManagerUI : MonoBehaviour
                 {
                     nextbtn.SetActive(false);
                 }
-                else {
+                else
+                {
                     nextbtn.SetActive(true);
                 }
                 prevbtn.SetActive(false);
                 chekDownloadStatus();
             }
-            else {
+            else
+            {
                 ProjectTitle.text = "Sample Project";
                 ProjectName.text = "Project: Sample Project";
                 ProjectImage.texture = SampleTexture;
                 ProjectDescription.text = "This is Sample Project Proveided By Studio One eleven";
                 ProjectSize.text = "Model size:0 MB";
-               // StartCoroutine(setProjectImage(Projects[0].photourl, ProjectImage, projectIndex));
+                // StartCoroutine(setProjectImage(Projects[0].photourl, ProjectImage, projectIndex));
                 LoadingPanal.SetActive(false);
                 ProjectsPanal.SetActive(true);
                 DashBoardPanel.SetActive(false);
@@ -334,18 +381,19 @@ public class LoginManagerUI : MonoBehaviour
                 LoadingPanal.SetActive(false);
                 Debug.Log("No Projects");
             }
-           
-            
+
+
             // Print Headers
             Debug.Log(responseText);
-           
+
 
         }
 
     }
 
-    
-    void chekDownloadStatus() {
+
+    void chekDownloadStatus()
+    {
         if (Projects.Count != 0)
         {
             if (PlayerPrefs.HasKey(Projects[projectIndex].name))
@@ -361,7 +409,8 @@ public class LoginManagerUI : MonoBehaviour
             }
 
         }
-        else {
+        else
+        {
             DownloadBtn.SetActive(false);
             OpenBtn.SetActive(true);
 
@@ -374,7 +423,8 @@ public class LoginManagerUI : MonoBehaviour
     public Text ProjectSize;
     public GameObject nextbtn;
     public GameObject prevbtn;
-    public void NextProject() {
+    public void NextProject()
+    {
 
         if (projectIndex + 1 < Projects.Count)
         {
@@ -388,7 +438,7 @@ public class LoginManagerUI : MonoBehaviour
             else if (!Projects[projectIndex].photourl.Equals(""))
             {
 
-                StartCoroutine(setProjectImage(Projects[projectIndex].photourl, ProjectImage,projectIndex));
+                StartCoroutine(setProjectImage(Projects[projectIndex].photourl, ProjectImage, projectIndex));
             }
             else
             {
@@ -397,13 +447,14 @@ public class LoginManagerUI : MonoBehaviour
             ProjectTitle.text = Projects[projectIndex].title;
             ProjectName.text = "Project: " + Projects[projectIndex].name;
             ProjectDescription.text = Projects[projectIndex].description;
-            ProjectSize.text = "Model size: " + Projects[projectIndex].size ;
+            ProjectSize.text = "Model size: " + Projects[projectIndex].size;
             chekDownloadStatus();
             if (projectIndex == Projects.Count - 1)
             {
                 nextbtn.SetActive(false);
             }
-            else {
+            else
+            {
                 nextbtn.SetActive(true);
             }
             prevbtn.SetActive(true);
@@ -412,7 +463,7 @@ public class LoginManagerUI : MonoBehaviour
     }
     public void PreviousProject()
     {
-        if (projectIndex - 1 >=0)
+        if (projectIndex - 1 >= 0)
         {
 
             projectIndex--;
@@ -423,20 +474,20 @@ public class LoginManagerUI : MonoBehaviour
             else if (!Projects[projectIndex].photourl.Equals(""))
             {
 
-                StartCoroutine(setProjectImage(Projects[projectIndex].photourl, ProjectImage,projectIndex));
+                StartCoroutine(setProjectImage(Projects[projectIndex].photourl, ProjectImage, projectIndex));
             }
             else
             {
                 ProjectImage.texture = DefaultProjectTexture;
             }
             ProjectTitle.text = Projects[projectIndex].title;
-            ProjectName.text ="Project: "+ Projects[projectIndex].name;
+            ProjectName.text = "Project: " + Projects[projectIndex].name;
             ProjectDescription.text = Projects[projectIndex].description;
             ProjectSize.text = "Model size: " + Projects[projectIndex].size;
             chekDownloadStatus();
             if (projectIndex == 0)
             {
-               prevbtn.SetActive(false);
+                prevbtn.SetActive(false);
             }
             else
             {
@@ -447,32 +498,41 @@ public class LoginManagerUI : MonoBehaviour
 
     }
 
-
-    public void GoToProjects() {
+    public void RefreshProject()
+    {
+        Projects = null;
+        Projects = new List<Project>();
+        CloseProjectMenu();
+        GoToProjects();
+    }
+    public void GoToProjects()
+    {
         if (Projects.Count == 0)
         {
-            DashBoardPanel.SetActive(true);
-            ProjectsPanal.SetActive(false);
+            projectIndex = 0;
+            // DashBoardPanel.SetActive(true);
+            // ProjectsPanal.SetActive(false);
             LoginPanal.SetActive(false);
             LoadingPanal.SetActive(true);
-            StartCoroutine(fetchProjects());
+            StartCoroutine(fetchProjects(false));
         }
         else
         {
-
+            projectIndex = 0;
             chekDownloadStatus();
             DashBoardPanel.SetActive(false);
             ProjectsPanal.SetActive(false);
             LoginPanal.SetActive(false);
             LoadingPanal.SetActive(false);
             ProjectsPanal.SetActive(true);
-
+            StartCoroutine(fetchProjects(true));
         }
 
     }
     public InputField Input;
 
-    public void DownloadProject() {
+    public void DownloadProject()
+    {
         Input.text = Projects[projectIndex].url.Replace("\\", "");
 
         if (Projects[projectIndex].isloaded == false)
@@ -480,7 +540,7 @@ public class LoginManagerUI : MonoBehaviour
             //LoadObj();
             LoadingPanal.SetActive(true);
             StartCoroutine(downloadAsset(Projects[projectIndex].url.Replace("\\", "")));
-           
+
         }
         else
         {
@@ -493,10 +553,10 @@ public class LoginManagerUI : MonoBehaviour
 
     IEnumerator downloadAsset(string url)
     {
-        
+
         UnityWebRequest www = UnityWebRequest.Get(url);
         DownloadHandler handle = www.downloadHandler;
-       
+
         //Send Request and wait
         yield return www.Send();
 
@@ -515,7 +575,7 @@ public class LoginManagerUI : MonoBehaviour
             string dataFileName = Projects[projectIndex].name;
             string tempPath = Path.Combine(Application.persistentDataPath, "AssetData");
             tempPath = Path.Combine(tempPath, dataFileName + ".unity3d");
-           
+
             //Save
             save(handle.data, tempPath);
         }
@@ -547,7 +607,7 @@ public class LoginManagerUI : MonoBehaviour
 
     IEnumerator LoadObject(string path)
     {
-       
+
         AssetBundleCreateRequest bundle = AssetBundle.LoadFromFileAsync(path);
         yield return bundle;
 
@@ -558,7 +618,7 @@ public class LoginManagerUI : MonoBehaviour
             yield break;
         }
 
-        var names =myLoadedAssetBundle.GetAllAssetNames();
+        var names = myLoadedAssetBundle.GetAllAssetNames();
         //  AssetBundleRequest request = myLoadedAssetBundle.LoadAsset();
         //yield return request;
 
@@ -569,11 +629,12 @@ public class LoginManagerUI : MonoBehaviour
         // obj.transform.localScale = new Vector3(1.0518f, 0.998f, 1.1793f);
 
         //Instantiate(obj);
-        if (PlaceOnPlane.AssatObj != null) {
+        if (PlaceOnPlane.AssatObj != null)
+        {
             PlaceOnPlane.AssatObj = null;
         }
-        PlaceOnPlane.AssatObj =(GameObject)objreq.asset;
-         Projects[projectIndex].LoadedObj= (GameObject)objreq.asset;
+        PlaceOnPlane.AssatObj = (GameObject)objreq.asset;
+        Projects[projectIndex].LoadedObj = (GameObject)objreq.asset;
         Projects[projectIndex].isloaded = true;
         LoadingPanal.SetActive(false);
         // ARCanvas.SetActive(true);
@@ -582,7 +643,8 @@ public class LoginManagerUI : MonoBehaviour
         ProjectsPanal.SetActive(false);
         ArExitpanel.SetActive(true);
     }
-    void LoadInSeen() {
+    void LoadInSeen()
+    {
         string path = PlayerPrefs.GetString(Projects[projectIndex].name);
         AssetBundle bundle = AssetBundle.LoadFromFile(path);
         var names = bundle.GetAllAssetNames();
@@ -614,14 +676,14 @@ public class LoginManagerUI : MonoBehaviour
             LoadingPanal.SetActive(true);
             if (Projects[projectIndex].LoadedObj == null)
             {
-               // LoadInSeen();
-                StartCoroutine( LoadObject(PlayerPrefs.GetString(Projects[projectIndex].name)));
+                // LoadInSeen();
+                StartCoroutine(LoadObject(PlayerPrefs.GetString(Projects[projectIndex].name)));
 
-               
+
             }
             else
             {
-                PlaceOnPlane.AssatObj =Projects[projectIndex].LoadedObj ;
+                PlaceOnPlane.AssatObj = Projects[projectIndex].LoadedObj;
                 LoadingPanal.SetActive(false);
                 //  ARCanvas.SetActive(true);
                 ProjectsPanal.SetActive(false);
@@ -632,8 +694,9 @@ public class LoginManagerUI : MonoBehaviour
 
             }
         }
-        else {
-            PlaceOnPlane.AssatObj =DefaultObject;
+        else
+        {
+            PlaceOnPlane.AssatObj = DefaultObject;
             LoadingPanal.SetActive(false);
             //  ARCanvas.SetActive(true);
             ProjectsPanal.SetActive(false);
@@ -642,7 +705,7 @@ public class LoginManagerUI : MonoBehaviour
             ArExitpanel.SetActive(true);
 
         }
-       
+
 
 
     }
@@ -686,7 +749,7 @@ public class LoginManagerUI : MonoBehaviour
 
 
 
-   
+
     public void BackToDashBoard()
     {
 
@@ -703,14 +766,14 @@ public class LoginManagerUI : MonoBehaviour
         ArExitpanel.SetActive(false);
         LoginPanal.SetActive(false);
         ProjectsPanal.SetActive(true);
-      //  ARCanvas.SetActive(false);
-       // ArSession.SetActive(false);
+        //  ARCanvas.SetActive(false);
+        // ArSession.SetActive(false);
         ArModePanel.SetActive(false);
         DashBoardPanel.SetActive(false);
     }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
