@@ -94,6 +94,30 @@ public class LoginManagerUI : MonoBehaviour
         Application.OpenURL("https://studiooneeleven.co/profile/");
     }
 
+
+    public void OpenAboutLink()
+    {
+        StartCoroutine(waitfor1sec());
+
+        Application.OpenURL("https://studiooneeleven.co/#about");
+    }
+
+    public void OpenGuideLink()
+    {
+
+        StartCoroutine(waitfor1sec());
+
+        Application.OpenURL("https://studiooneeleven.co/#howitwork");
+    }
+
+    public void OpenDashBoardLink()
+    {
+
+        StartCoroutine(waitfor1sec());
+
+        Application.OpenURL("https://studiooneeleven.co/user-dashboard/"+PlayerPrefs.GetString("username"));
+    }
+
     IEnumerator waitfor1sec()
     {
         LoadingPanal.SetActive(true);

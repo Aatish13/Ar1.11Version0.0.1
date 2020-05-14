@@ -31624,7 +31624,7 @@ GameObject:
   - component: {fileID: 1757782662}
   - component: {fileID: 1757782661}
   m_Layer: 5
-  m_Name: about us
+  m_Name: guide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31692,7 +31692,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1757782662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1781294424}
+        m_MethodName: OpenGuideLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1757782662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32770,7 +32781,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1813862551}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1781294424}
+        m_MethodName: OpenAboutLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1813862551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33352,7 +33374,7 @@ GameObject:
   - component: {fileID: 1841185011}
   - component: {fileID: 1841185010}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: deleteBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33420,7 +33442,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1841185011}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1781294424}
+        m_MethodName: OpenDashBoardLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1841185011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34148,7 +34181,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1923660767}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1781294424}
+        m_MethodName: OpenDashBoardLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1923660767
 MonoBehaviour:
   m_ObjectHideFlags: 0
