@@ -301,6 +301,7 @@ public class LoginManagerUI : MonoBehaviour
     int projectIndex = 0;
     IEnumerator fetchProjects(bool isFetched)
     {
+
         var request = UnityWebRequest.Get("https://studiooneeleven.co/wp-json/wp/v2/wpfm-files?per_page=100&_embed");
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -317,13 +318,16 @@ public class LoginManagerUI : MonoBehaviour
             Debug.Log("All OK");
             Debug.Log("Status Code: " + request.responseCode);
             string responseText = request.downloadHandler.text;
-
+            List<Project> tempList;
             if (Projects.Count != 0)
             {
-                Projects = null;
+                tempList = Projects;
                 Projects = new List<Project>();
                 projectIndex = 0;
 
+            }
+            else {
+                tempList = new List<Project>();
             }
             var obj = JSONArray.Parse(responseText);
             string username2 = PlayerPrefs.GetString("username");
@@ -333,8 +337,7 @@ public class LoginManagerUI : MonoBehaviour
                 {
 
                     Debug.Log(o.Obj.GetString("post_image"));
-
-                    Projects.Add(new Project
+                    Project p = new Project
                     {
                         id = o.Obj.GetNumber("id"),
                         name = o.Obj.GetString("wpfm_file_name"),
@@ -343,9 +346,12 @@ public class LoginManagerUI : MonoBehaviour
                         description = o.Obj.GetString("wpfm_discription"),
                         photourl = o.Obj.GetString("post_image").Replace("\\", ""),
                         title = o.Obj.GetString("wpfm_title")
-                    });
+                    };
+                    
+                    Projects.Add(p);
                 }
             }
+            
             /* if (Projects.Count == 0) {
                  Projects.Add(new Project
                  {
@@ -524,8 +530,8 @@ public class LoginManagerUI : MonoBehaviour
 
     public void RefreshProject()
     {
-        Projects = null;
-        Projects = new List<Project>();
+
+       
         CloseProjectMenu();
         GoToProjects();
     }
@@ -645,7 +651,7 @@ public class LoginManagerUI : MonoBehaviour
         var names = myLoadedAssetBundle.GetAllAssetNames();
         //  AssetBundleRequest request = myLoadedAssetBundle.LoadAsset();
         //yield return request;
-
+       
         AssetBundleRequest objreq = myLoadedAssetBundle.LoadAssetAsync(names[0]);
         yield return objreq;
         //obj.transform.position = new Vector3(0.08f, -2.345f, 297.54f);
@@ -666,13 +672,14 @@ public class LoginManagerUI : MonoBehaviour
         ArModePanel.SetActive(true);
         ProjectsPanal.SetActive(false);
         ArExitpanel.SetActive(true);
+        myLoadedAssetBundle.Unload(false);
     }
     void LoadInSeen()
     {
         string path = PlayerPrefs.GetString(Projects[projectIndex].name);
         AssetBundle bundle = AssetBundle.LoadFromFile(path);
         var names = bundle.GetAllAssetNames();
-
+      
         GameObject cube = (GameObject)bundle.LoadAsset(names[0]);
         // spawnedObject = Instantiate(cube);
         Projects[projectIndex].LoadedObj = cube;
@@ -685,6 +692,7 @@ public class LoginManagerUI : MonoBehaviour
         ProjectsPanal.SetActive(false);
         ArExitpanel.SetActive(true);
         //  LoadObject(path);
+        bundle.Unload(false);
     }
 
     public GameObject ArSession;
