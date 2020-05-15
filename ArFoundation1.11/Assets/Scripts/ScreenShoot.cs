@@ -21,7 +21,7 @@ public class ScreenShoot : MonoBehaviour
     public IEnumerator TakeSnapshot()
     {
         yield return frameEnd;
-
+        //Capture Image
         Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
         texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         texture.LoadRawTextureData(texture.GetRawTextureData());
@@ -39,7 +39,7 @@ public class ScreenShoot : MonoBehaviour
         
     }
 
-
+    //share using nat lib
     public void ShareSS() {
         SSPanel.SetActive(true);
         var payload = new SharePayload();
