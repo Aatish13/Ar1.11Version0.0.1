@@ -531,9 +531,9 @@ public class LoginManagerUI : MonoBehaviour
     public void RefreshProject()
     {
 
-       
+        LoadingPanal.SetActive(true);
         CloseProjectMenu();
-        GoToProjects();
+        StartCoroutine(fetchProjects(false));
     }
     public void GoToProjects()
     {
@@ -555,7 +555,7 @@ public class LoginManagerUI : MonoBehaviour
             LoginPanal.SetActive(false);
             LoadingPanal.SetActive(false);
             ProjectsPanal.SetActive(true);
-            StartCoroutine(fetchProjects(true));
+           // StartCoroutine(fetchProjects(true));
         }
 
     }
@@ -699,8 +699,10 @@ public class LoginManagerUI : MonoBehaviour
     public GameObject ArModePanel;
     public GameObject DefaultObject;
     public Texture2D SampleTexture;
+    public GameObject ArAnimation;
     public void GoToAr()
     {
+        ArAnimation.SetActive(true);
         ArSession.SetActive(true);
         if (Projects.Count != 0)
         {
