@@ -1,0 +1,127 @@
+# MTL Exporter v1.0 by Seungwoo Oh at CLO - Virtual Fashion Inc.
+newmtl Material3877
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd eyelash_R255_G255_B255.png
+map_d eyelash_OP.jpg
+newmtl Material3883
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd tooth_R255_G255_B255.png
+map_d tooth_OP.jpg
+newmtl Default Fabric_FRONT_4963
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Kd skandamata_R255_G255_B255.png
+map_Bump Cotton_Canvas_FCL1PSC008_NORMAL.jpg
+map_d skandamata_OP.jpg
+newmtl Material3857
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd eye_R255_G255_B255.png
+map_d eye_OP.jpg
+newmtl Material3750
+Kd 1.000000 1.000000 1.000000
+Ks 0.071055 0.071055 0.071055
+Ns 24.999998
+illum 2
+d 1.000000
+map_Kd ADIDAS_SCAN_Shoes_R255_G255_B255.png
+map_d ADIDAS_SCAN_Shoes_OP.jpg
+newmtl Material3846
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd arm_R255_G255_B255.png
+map_d arm_OP.jpg
+newmtl Material3732
+Kd 1.000000 1.000000 1.000000
+Ks 0.071055 0.071055 0.071055
+Ns 24.999998
+illum 2
+d 1.000000
+map_Kd ADIDAS_SCAN_Shoes_R255_G255_B255.png
+map_d ADIDAS_SCAN_Shoes_OP.jpg
+newmtl Material3736
+Kd 0.400000 0.400000 0.400000
+Ks 0.045278 0.045278 0.045278
+Ns 9.999998
+illum 2
+d 1.000000
+map_d transparency.png
+newmtl Material3753
+Kd 0.400000 0.400000 0.400000
+Ks 0.045278 0.045278 0.045278
+Ns 9.999998
+illum 2
+d 1.000000
+map_d transparency.png
+newmtl Material3769
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd hair_R255_G255_B255.png
+map_d hair_OP.jpg
+newmtl Material3838
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd face_R255_G255_B255.png
+map_d face_OP.jpg
+newmtl Material3842
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd body_R255_G255_B255.png
+map_d body_OP.jpg
+newmtl Material3850
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd leg_R255_G255_B255.png
+map_d leg_OP.jpg
+newmtl Material3864
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd eye_R255_G255_B255.png
+map_d eye_OP.jpg
+newmtl Material3870
+Kd 1.000000 1.000000 1.000000
+Ks 0.050407 0.050407 0.050407
+Ns 11.999997
+illum 2
+d 1.000000
+map_Kd eyelash_R255_G255_B255.png
+map_d eyelash_OP.jpg
+newmtl FABRIC 1_FRONT_1523032
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Bump 30s_Muslin_FCL1PSM007_NORMAL.jpg
