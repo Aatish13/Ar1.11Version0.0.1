@@ -5,7 +5,67 @@ using UnityEngine;
 public class ArControles : MonoBehaviour
 {
     void Start() {
-     //   ArSession.SetActive(false);
+        //   ArSession.SetActive(false);
+        if (PlayerPrefs.HasKey("ArMenuHelp"))
+        {
+            ArMenuHelp.SetActive(false);
+        }
+        else {
+            ArMenuHelp.SetActive(true);
+        }
+
+        if (PlayerPrefs.HasKey("ArTransformMenuHelp"))
+        {
+            ArTransformMenuHelp.SetActive(false);
+        }
+        else
+        {
+            ArTransformMenuHelp.SetActive(true);
+        }
+
+        if (PlayerPrefs.HasKey("ArMoveXZHelp"))
+        {
+            ArMoveXZHelp.SetActive(false);
+        }
+        else
+        {
+            ArMoveXZHelp.SetActive(true);
+        }
+
+        if (PlayerPrefs.HasKey("ArRotateHelp"))
+        {
+            ArRotateHelp.SetActive(false);
+        }
+        else
+        {
+            ArRotateHelp.SetActive(true);
+        }
+
+        if (PlayerPrefs.HasKey("ArRotateHelp"))
+        {
+            ArRotateHelp.SetActive(false);
+        }
+        else
+        {
+            ArRotateHelp.SetActive(true);
+        }
+
+        if (PlayerPrefs.HasKey("ArScaleHelp"))
+        {
+            ArScaleHelp.SetActive(false);
+        }
+        else
+        {
+            ArScaleHelp.SetActive(true);
+        }
+        if (PlayerPrefs.HasKey("ArMoveYHelp"))
+        {
+            ArMoveYHelp.SetActive(false);
+        }
+        else
+        {
+            ArMoveYHelp.SetActive(true);
+        }
 
     }
 
@@ -113,6 +173,7 @@ ArTransformMenuHelp.SetActive(false);
     public void ClosehelpMenu()
     {
         ArMenuHelp.SetActive(false);
+        PlayerPrefs.SetString("ArMenuHelp", "ArMenuHelp");
     }
 
 
@@ -140,7 +201,7 @@ ArTransformMenuHelp.SetActive(false);
     public void CloseTransformMenuHelp()
     {
         ArTransformMenuHelp.SetActive(false);
-        
+        PlayerPrefs.SetString("ArTransformMenuHelp", "ArTransformMenuHelp");
     }
 
 
@@ -163,6 +224,7 @@ ArTransformMenuHelp.SetActive(false);
     {
       
         ArMoveXZHelp.SetActive(false);
+        PlayerPrefs.SetString("ArMoveXZHelp", "ArMoveXZHelp");
     }
 
     public void OpenMoveY()
@@ -184,6 +246,7 @@ ArTransformMenuHelp.SetActive(false);
     {
        
         ArMoveYHelp.SetActive(false);
+        PlayerPrefs.SetString("ArMoveYHelp", "ArMoveYHelp");
     }
 
     public void OpenScalePanel()
@@ -200,11 +263,13 @@ ArTransformMenuHelp.SetActive(false);
     {
 
         ArScaleHelp.SetActive(true);
+      
     }
     public void CloseScaleHelp()
     {
      
         ArScaleHelp.SetActive(false);
+        PlayerPrefs.SetString("ArScaleHelp", "ArScaleHelp");
     }
     public void OpenRotatePanel()
     {
@@ -219,13 +284,12 @@ ArTransformMenuHelp.SetActive(false);
     }
     public void OpenRotateHelp()
     {
-
         ArRotateHelp.SetActive(true);
     }
     public void CloseRotateHelp()
     {
 
         ArRotateHelp.SetActive(false);
-
+        PlayerPrefs.SetString("ArRotateHelp", "ArRotateHelp");
     }
 }
