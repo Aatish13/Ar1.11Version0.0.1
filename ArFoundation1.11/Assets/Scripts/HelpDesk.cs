@@ -4,8 +4,50 @@ using UnityEngine;
 
 public class HelpDesk : MonoBehaviour
 {
+    public GameObject TopMenu;
+    public GameObject GuidePanel;
+    public GameObject AddProjectPanel;
+
+    void Start()
+    {
+        if (PlayerPrefs.HasKey("GuidePanel"))
+        {
+            GuidePanel.SetActive(false);
+        }
+        else {
+            GuidePanel.SetActive(true);
+        }
+    }
+
+    public void OpenGuidePanel() {
+
+        TopMenu.SetActive(false);
+        GuidePanel.SetActive(true);
+    }
+    public void CloseGuidePanel() {
+        GuidePanel.SetActive(false);
+        if (!PlayerPrefs.HasKey("GuidePanel")) {
+            PlayerPrefs.SetString("GuidePanel", "GuidePanel");
+        }
+    }
+
+    public void OpenAddProject() {
+        TopMenu.SetActive(false);
+        AddProjectPanel.SetActive(true);
+    }
+    public void CloseAddProject()
+    {
+        AddProjectPanel.SetActive(false);
+    }
+    public void AddProjectMail() {
+        string email = "admin@studiooneeleven.co";
+        string subject = MyEscapeURL("Add New Project");
+        string body = MyEscapeURL("");
+        Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
+    }
+
     // Start is called before the first frame update
-   public void SendEmail()
+    public void SendEmail()
     {
         string email = "admin@studiooneeleven.co";
         string subject = MyEscapeURL("Ar1.11 Application ");

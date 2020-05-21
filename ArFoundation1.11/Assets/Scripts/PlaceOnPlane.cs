@@ -47,13 +47,30 @@ public class PlaceOnPlane : MonoBehaviour
 
     public Slider YRotation;
     bool MoveXZFlag = false;
+   
     public void MoveXZ()
     {
-        MoveXZFlag = true;
-        VisualizePlanes(true);
-        VisualizePoints(true);
+        if (index <2)
+        {
+            joystickForMove.SetActive(true);
+              }
+        else {
+            MoveXZFlag = true;
+            VisualizePlanes(true);
+            VisualizePoints(true);
+            joystickForMove.SetActive(false);
+
+        }
+
 
     }
+    public GameObject joystickForMove;
+
+    public void moveObj(Vector2 change) {
+        Debug.Log(change.x + " " + change.y);
+        spawnedObject.transform.position += new Vector3((change.x/10)*size[index],0,(change.y/10)*size[index]);
+    }
+
     public void CloseMoveXZ()
     {
         MoveXZFlag = false;
@@ -168,7 +185,8 @@ public class PlaceOnPlane : MonoBehaviour
     public GameObject ArAnimation;
     void Update()
     {
-
+       // joystickForMove.transform.rotation = Quaternion.Euler(new Vector3(0, 0, ARcamera.transform.rotation.y));
+       // joystickForMove.transform.Rotate(0f, 0f,ARcamera.transform.rotation.eulerAngles.x);
         //  url = Url.textComponent.text;
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
