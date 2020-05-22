@@ -1,14 +1,10 @@
 ManifestFileVersion: 0
-CRC: 2410287645
+CRC: 1626947676
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: opencafe
+      Name: lighttest2
       Dependencies: {}
     Info_1:
-      Name: 4bhk
-      Dependencies:
-        Dependency_0: site
-    Info_2:
-      Name: site
+      Name: arealight
       Dependencies: {}

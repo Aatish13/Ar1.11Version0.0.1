@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 704915775
+CRC: 3325651298
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9376d3c188d117d13b2cdb9e347ce58e
+    Hash: bf0832fb2faf1c705bfea9ee560b001e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6091b0eb1f708f97c5fe73e15d9d9a38
+    Hash: c73e78be27f86377dd0fead119df09a8
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,10 +25,12 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
-- Class: 108
+- Class: 135
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/AR Placed Sphere Variant.prefab
+- Assets/Prefabs/AR Placed Cube.prefab
 Dependencies: []

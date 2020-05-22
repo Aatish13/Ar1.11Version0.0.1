@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "869432759814",
+    "firebase_url": "https://ar111-eb53e.firebaseio.com",
+    "project_id": "ar111-eb53e",
+    "storage_bucket": "ar111-eb53e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869432759814:android:c555a5ee7762f839649587",
+        "android_client_info": {
+          "package_name": "com.StudioOneEleven.ar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869432759814-21gjo6kqf1q077m5piph6nnufbe3rc6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1p_M5cD4hdX6Qv5-DaaQtXV-W6_0NEzM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869432759814-21gjo6kqf1q077m5piph6nnufbe3rc6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

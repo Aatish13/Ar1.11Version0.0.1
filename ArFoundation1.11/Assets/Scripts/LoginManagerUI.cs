@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.IO;
 using SimpleFileBrowser;
+using TMPro;
+
 public class LoginManagerUI : MonoBehaviour
 {
 
@@ -158,8 +160,8 @@ public class LoginManagerUI : MonoBehaviour
         LoginPanal.SetActive(true);
     }
 
-    public InputField emailInput;
-    public InputField passwordInput;
+    public TMP_InputField emailInput;
+    public TMP_InputField passwordInput;
 
     public void GotoDashBoard()
     {
