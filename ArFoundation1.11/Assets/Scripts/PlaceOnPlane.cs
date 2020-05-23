@@ -91,6 +91,8 @@ public class PlaceOnPlane : MonoBehaviour
         pos.y -= 0.2f;
         spawnedObject.transform.position = pos;
     }
+
+    public Light mainLight;
     public Text sizeLable;
     float[] size = { 1f, 0.5f, 0.2f, 0.1f, 0.05f, 0.02f, 0.01f, 0.005f };
     string[] lable = { "1:1", "1:2", "1:5", "1:10", "1:20", "1:50", "1:100", "1:200" };
@@ -104,6 +106,13 @@ public class PlaceOnPlane : MonoBehaviour
                 index--;
             }
             Vector3 dif = new Vector3(size[index], size[index], size[index]);
+            var lights = FindObjectsOfType(typeof(Light)) as Light[];
+            foreach (Light light in lights)
+            {
+                light.intensity = 1*size[index];
+                Debug.Log(light);
+            }
+            mainLight.intensity = 1;
             spawnedObject.transform.localScale = dif;
             sizeLable.text = lable[index];
         }
@@ -117,6 +126,14 @@ public class PlaceOnPlane : MonoBehaviour
                 index++;
             }
             Vector3 dif = new Vector3(size[index], size[index], size[index]);
+
+            var lights = FindObjectsOfType(typeof(Light)) as Light[];
+            foreach (Light light in lights)
+            {
+                light.intensity = 1 * size[index];
+                Debug.Log(light);
+            }
+            mainLight.intensity = 1;
             spawnedObject.transform.localScale = dif;
             sizeLable.text = lable[index];
 
