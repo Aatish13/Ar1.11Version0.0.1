@@ -18,11 +18,6 @@ public class DashboardUI : MonoBehaviour
     public GameObject JoinRoom;
     public GameObject JoinRoomP1;
     public GameObject JoinRoomP2;
-
-
-    public GameObject FurniturePanel;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -138,32 +133,4 @@ public class DashboardUI : MonoBehaviour
         JoinRoomP1.SetActive(true);
     }
 
-    public GameObject FurniturePanel1, FurniturePanel2;
-
-    public void OpenFurniturePanel() {
-        FurniturePanel1.SetActive(true);
-        FurniturePanel2.SetActive(false);
-        FurniturePanel.SetActive(true);
-
-    }
-
-    public void CloseFurniturePanel()
-    {
-
-        FurniturePanel1.SetActive(true);
-        FurniturePanel2.SetActive(false);
-        FurniturePanel.SetActive(false);
-
-    }
-
-    public void NextFurniturePanel() {
-        FurniturePanel1.SetActive(false);
-        FurniturePanel2.SetActive(true);
-    }
-
-    public void PreviousFurniturePanel()
-    {
-        FurniturePanel2.SetActive(false);
-        FurniturePanel1.SetActive(true);
-    }
 }
