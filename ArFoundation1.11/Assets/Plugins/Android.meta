@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 42654a433bb069a41915ee252f235450
 folderAsset: yes
+<<<<<<< HEAD
 timeCreated: 1450315055
 licenseType: Free
 DefaultImporter:
+=======
+DefaultImporter:
+  externalObjects: {}
+>>>>>>> parent of 0889af9... Revert "light problem solved"
   userData: 
   assetBundleName: 
   assetBundleVariant: 
